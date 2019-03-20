@@ -1,0 +1,42 @@
+﻿@model  AxsisTest.Models.Usuario
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Login Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="jumbotron">
+                <h3>Iniciar sesi&oacute;n</h3>
+                <br />
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.DisplayNameFor(m => m.Correo)
+                        @Html.TextBoxFor(m => m.Correo, new { placeholder = "Usuario", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Correo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.DisplayNameFor(m => m.NombreUsuario)
+                        @Html.TextBoxFor(m => m.NombreUsuario, new { placeholder = "Usuario", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.NombreUsuario, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.DisplayNameFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password, new { placeholder = "Contraseña", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Login</button>
+                }
+            </div>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+</div>
+
+
