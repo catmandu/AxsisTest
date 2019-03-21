@@ -18,13 +18,16 @@ namespace AxsisTest.Helpers.Authentication
             
             var user = new IdentityUser()
             {
-                Id = _dbManager.GetUsuarioId(userLogin),
                 UserName = userLogin.NombreUsuario
             };
 
-            var authenticationManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
-            var userIdentity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-            authenticationManager.SignIn(userIdentity);
+            IdentityResult result = manager.Create(user, userLogin.Password);
+            if (result.Succeeded)
+            {
+                var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
+                var userIdentity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                authenticationManager.SignIn(userIdentity);
+            }
         }
     }
 }
