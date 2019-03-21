@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Web.Mvc;
+using System.Web;
 using AxsisTest.Models;
+using AxsisTest.DB;
+using AxsisTest.Helpers.Authentication;
 
 namespace AxsisTest.Controllers
 {
     public class LoginController : Controller
     {
+        private DBManager _dbManager;
+
+        public LoginController()
+        {
+            _dbManager = new DBManager();
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -13,13 +23,13 @@ namespace AxsisTest.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(Usuario model)
+        public ActionResult Index(Login model)
         {
             if (ModelState.IsValid)
             {
-                if(model.NombreUsuario.Equals("usuario")
-                    && model.Password.Equals("mipass"))
+                if(_dbManager.ValidateUsuario(model))
                 {
+                    AuthManager.SignInUser(model);
                     return RedirectToAction("Index", "Home");
                 }
             }

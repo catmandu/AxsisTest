@@ -1,4 +1,4 @@
-﻿@model  AxsisTest.Models.Usuario
+﻿@model  AxsisTest.Models.Login
 
 @{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
@@ -16,11 +16,6 @@
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group">
-                        @Html.DisplayNameFor(m => m.Correo)
-                        @Html.TextBoxFor(m => m.Correo, new { placeholder = "Usuario", @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Correo, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
                         @Html.DisplayNameFor(m => m.NombreUsuario)
                         @Html.TextBoxFor(m => m.NombreUsuario, new { placeholder = "Usuario", @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.NombreUsuario, "", new { @class = "text-danger" })
@@ -30,7 +25,9 @@
                         @Html.PasswordFor(m => m.Password, new { placeholder = "Contraseña", @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
-
+                    <div class="form-group">
+                        @Html.ActionLink("Registrarse", "Save", "Home")
+                    </div>
                     <button class="btn btn-primary" type="submit">Login</button>
                 }
             </div>
