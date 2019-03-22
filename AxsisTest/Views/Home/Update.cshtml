@@ -1,7 +1,7 @@
 ﻿@model AxsisTest.Models.Usuario
 
 @{ 
-    ViewBag.Title = "Crear usuario";
+    ViewBag.Title = "Editar usuario";
     Layout = "~/Views/Shared/_LayoutNoNav.cshtml";
 }
 <div class="container">
@@ -9,11 +9,12 @@
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <div class="jumbotron">
-                <h3>Crear usuario</h3>
+                <h3>Editar usuario</h3>
                 <br />
-                @using (Html.BeginForm("Save", "Home", FormMethod.Post))
+                @using (Html.BeginForm("Update", "Home", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Estatus)
                     <div class="form-group">
                         @Html.DisplayNameFor(m => m.Correo)
                         @Html.TextBoxFor(m => m.Correo, new { placeholder = "Usuario", @class = "form-control" })
@@ -33,10 +34,6 @@
                         @Html.DisplayNameFor(m => m.ConfirmPassword)
                         @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Contraseña", @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.CheckBoxFor(m => m.Estatus)
-                        <label id="lblEstatus" class="@(Model.Estatus ? "text-success" : "text-danger")">@(Model.Estatus ? "Activo" : "Inactivo")</label>
                     </div>
                     <div class="form-group">
                         @Html.DisplayNameFor(m => m.Sexo)

@@ -169,7 +169,6 @@
     <Compile Include="Helpers\Managers\AuthManagercs.cs" />
     <Compile Include="Helpers\Encryption\PassEncryption.cs" />
     <Compile Include="Helpers\Enum\Sexo.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -252,6 +251,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_LayoutNoNav.cshtml" />
+    <Content Include="Views\Home\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

@@ -12,7 +12,7 @@
             <div class="jumbotron">
                 <h3>Iniciar sesi&oacute;n</h3>
                 <br />
-                @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { id = "frmLogin"}))
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.ConfirmPassword)

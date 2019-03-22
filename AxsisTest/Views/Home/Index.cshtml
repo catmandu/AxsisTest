@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<AxsisTest.Models.Usuario>
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Usuarios";
 }
 
 <div class="container">
     <h2>Usuarios</h2>
-    <table class="table table-hover">
+    <table class="table table-hover text-center">
         <thead>
             <tr>
                 <th>Id</th>
@@ -13,6 +13,7 @@
                 <th>Correo</th>
                 <th>Sexo</th>
                 <th>Estatus</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -23,9 +24,8 @@
                     <td>@usuario.NombreUsuario</td>
                     <td>@usuario.Correo</td>
                     <td>@usuario.Sexo</td>
-                    <td class="@(usuario.Estatus ? "text-success": "text-danger")">@(usuario.Estatus ? "Activo": "Inactivo")</td>
-                    <td>@Html.ActionLink("Editar", "Save", new { Id = usuario.Id })</td>
-                    <td>@Html.ActionLink("Eliminar", "Delete", new { Id = usuario.Id })</td>
+                    <td class="@Html.Raw(usuario.Estatus ? "text-success" : "text-danger")">@Html.Raw(usuario.Estatus ? "Activo" : "Inactivo")</td>
+                    <td>@Html.ActionLink("Eliminar", "Delete", new { Id = usuario.Id }) | @Html.ActionLink("Editar", "Update", new { Id = usuario.Id })</td>
                 </tr>
             }
 

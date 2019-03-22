@@ -13,11 +13,11 @@ namespace AxsisTest.DB
         {
             using (var dbContext = new AxsisTestDB())
             {
-                user.Password = PassEncryption.Encrypt(user.Password);
+                string encodedPass = PassEncryption.Encrypt(user.Password);
 
                 return dbContext.Usuarios.Any(u => 
                 user.NombreUsuario == u.NombreUsuario
-                && user.Password == u.Password);
+                && encodedPass == u.Password);
             }
         }
 
@@ -44,19 +44,41 @@ namespace AxsisTest.DB
             return user;
         }
 
-        public bool SaveOrUpdateUsuario(Usuario user)
+        public bool SaveUsuario(Usuario user)
         {
             using (var dbContext = new AxsisTestDB())
             {
                 try
                 {
-                    var existingUser = dbContext.Usuarios.FirstOrDefault(u => u.Id == user.Id);
-                    user.Password = existingUser != null ? existingUser.Password : PassEncryption.Encrypt(user.Password);
+                    user.Password = PassEncryption.Encrypt(user.Password);
 
-                    dbContext.Usuarios.AddOrUpdate(user);
+                    dbContext.Usuarios.Add(user);
                     dbContext.SaveChanges();
                 }
-                catch
+                catch(Exception ex)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public bool UpdateUsuario(Usuario user)
+        {
+            using (var dbContext = new AxsisTestDB())
+            {
+                try
+                {
+                    user.Password = PassEncryption.Encrypt(user.Password);
+
+                    var userToUpdate = dbContext.Usuarios.FirstOrDefault(u => u.Id == user.Id);
+                    userToUpdate = user;
+
+                    dbContext.Usuarios.AddOrUpdate(userToUpdate);
+                    dbContext.SaveChanges();
+                }
+                catch(Exception ex)
                 {
                     return false;
                 }
@@ -72,12 +94,12 @@ namespace AxsisTest.DB
                 try
                 {
                     var user = dbContext.Usuarios.FirstOrDefault(u => u.Id == id);
-                    user.Eliminado = true;
+                    user.Estatus = false;
 
                     dbContext.Usuarios.AddOrUpdate(user);
                     dbContext.SaveChanges();
                 }
-                catch
+                catch(Exception ex)
                 {
                     return false;
                 }

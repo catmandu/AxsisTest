@@ -3,14 +3,20 @@ namespace AxsisTest.DB
     using System.Data.Entity;
     using AxsisTest.Models;
 
-    public class AxsisTestDB : DbContext
+    public partial class AxsisTestDB : DbContext
     {
         public AxsisTestDB()
             : base("name=AxsisTestDB")
         {
             Configuration.ValidateOnSaveEnabled = false;
+            Database.SetInitializer<AxsisTestDB>(null);
         }
 
-        public virtual DbSet<Usuario> Usuarios { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+        }
+
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }

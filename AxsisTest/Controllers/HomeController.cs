@@ -5,7 +5,7 @@ using AxsisTest.Helpers;
 
 namespace AxsisTest.Controllers
 {
-    
+    [Authorize]
     public class HomeController : Controller
     {
         private DBManager _dbManager;
@@ -17,7 +17,7 @@ namespace AxsisTest.Controllers
             _authManager = new AuthManager();
         }
 
-        [Authorize]
+        
         public ActionResult Index()
         {
             var usuarios = _dbManager.GetUsuarios();
@@ -25,10 +25,32 @@ namespace AxsisTest.Controllers
             return View(usuarios);
         }
         
-        public ActionResult Save(int id = 0)
+        [AllowAnonymous]
+        public ActionResult Save()
         {
-            ViewBag.Title = id == 0 ? "Crear" : "Editar";
+            return View(new Usuario());
+        }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(Usuario model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_authManager.CreateUser(model)
+                    && _dbManager.SaveUsuario(model))
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("NombreUsuario", "Ya existe un usuario con la información proporcionada");
+            }
+            return View(model);
+        }
+
+        public ActionResult Update(int id)
+        {
             var usuario = _dbManager.GetUsuario(id);
 
             return View(usuario);
@@ -36,15 +58,17 @@ namespace AxsisTest.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Usuario model)
+        public ActionResult Update(Usuario model)
         {
             if (ModelState.IsValid)
             {
-                if (_authManager.CreateUser(model)
-                    && _dbManager.SaveOrUpdateUsuario(model))
+                if (_authManager.UpdateUser(model)
+                    &&_dbManager.UpdateUsuario(model))
                 {
                     return RedirectToAction("Index");
                 }
+
+                ModelState.AddModelError("NombreUsuario", "Ya existe un usuario con la información proporcionada");
             }
             return View(model);
         }

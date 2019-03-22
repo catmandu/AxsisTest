@@ -31,12 +31,13 @@ namespace AxsisTest.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(_dbManager.ValidateUsuario(model))
+                if (_dbManager.ValidateUsuario(model)
+                    && _authManager.SignInUser(model))
                 {
-                    _authManager.SignInUser(model);
-
                     return RedirectToAction("Index", "Home");
                 }
+
+                ModelState.AddModelError("Password", "Usuario o contraseña incorrectos");
             }
 
             return View();

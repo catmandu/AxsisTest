@@ -24,7 +24,5 @@ namespace AxsisTest.Models
         public Sexo Sexo { get; set; }
 
         public DateTime FechaCreacion { get; set; }
-
-        public bool Eliminado { get; set; }
     }
 }

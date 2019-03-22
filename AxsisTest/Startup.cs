@@ -16,8 +16,6 @@ namespace AxsisTest
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Login/Index")
             });
-
-            
         }
     }
 }
