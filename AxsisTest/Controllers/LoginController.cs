@@ -1,6 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
-using System.Web;
+﻿using System.Web.Mvc;
 using AxsisTest.Models;
 using AxsisTest.DB;
 using AxsisTest.Helpers.Authentication;
@@ -34,6 +32,12 @@ namespace AxsisTest.Controllers
                 }
             }
             return View();
+        }
+
+        public ActionResult LogOut()
+        {
+            AuthManager.SignOutUser();
+            return RedirectToAction("Index");
         }
     }
 }

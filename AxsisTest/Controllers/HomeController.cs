@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AxsisTest.Models;
 using AxsisTest.DB;
-using AxsisTest.Helpers.Encryption;
 
 namespace AxsisTest.Controllers
 {
