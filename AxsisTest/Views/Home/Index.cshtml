@@ -25,6 +25,7 @@
                     <td>@usuario.Sexo</td>
                     <td class="@(usuario.Estatus ? "text-success": "text-danger")">@(usuario.Estatus ? "Activo": "Inactivo")</td>
                     <td>@Html.ActionLink("Editar", "Save", new { Id = usuario.Id })</td>
+                    <td>@Html.ActionLink("Eliminar", "Delete", new { Id = usuario.Id })</td>
                 </tr>
             }
 

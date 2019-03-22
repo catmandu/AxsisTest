@@ -8,6 +8,7 @@ namespace AxsisTest.DB
         public AxsisTestDB()
             : base("name=AxsisTestDB")
         {
+            Configuration.ValidateOnSaveEnabled = false;
         }
 
         public virtual DbSet<Usuario> Usuarios { get; set; }

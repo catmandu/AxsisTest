@@ -1,14 +1,14 @@
 ﻿@model AxsisTest.Models.Usuario
 
-@{
-    ViewBag.Title = "About";
+@{ 
+    Layout = "~/Views/Shared/_LayoutNoNav.cshtml";
 }
 <div class="container">
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <div class="jumbotron">
-                <h3>Crear usuario</h3>
+                <h3>@ViewBag.Title usuario</h3>
                 <br />
                 @using (Html.BeginForm("Save", "Home", FormMethod.Post))
                 {
@@ -29,15 +29,21 @@
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
+                        @Html.DisplayNameFor(m => m.ConfirmPassword)
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Contraseña", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group @(string.IsNullOrEmpty(Model.NombreUsuario) ? string.Empty : "d-none")">
                         @Html.CheckBoxFor(m => m.Estatus)
                         <label id="lblEstatus" class="@(Model.Estatus ? "text-success" : "text-danger")">@(Model.Estatus ? "Activo" : "Inactivo")</label>
                     </div>
                     <div class="form-group">
                         @Html.DisplayNameFor(m => m.Sexo)
-                        @Html.EnumDropDownListFor(m => m.Sexo, new { @class = "form-control"})
+                        @Html.EnumDropDownListFor(m => m.Sexo, new { @class = "form-control" })
                     </div>
 
-                    <button class="btn btn-primary" type="submit">Login</button>
+                    <button class="btn btn-primary" type="submit">@ViewBag.Title</button>
+                    <button class="btn btn-dark" type="button" onclick="window.location.href='@Url.Action("Index")'">Cancelar</button>
                 }
             </div>
         </div>

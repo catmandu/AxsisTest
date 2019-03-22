@@ -1,21 +1,27 @@
 ﻿using System.Web.Mvc;
 using AxsisTest.Models;
 using AxsisTest.DB;
-using AxsisTest.Helpers.Authentication;
+using AxsisTest.Helpers;
 
 namespace AxsisTest.Controllers
 {
     public class LoginController : Controller
     {
         private DBManager _dbManager;
+        private AuthManager _authManager;
 
         public LoginController()
         {
             _dbManager = new DBManager();
+            _authManager = new AuthManager();
         }
 
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -27,16 +33,19 @@ namespace AxsisTest.Controllers
             {
                 if(_dbManager.ValidateUsuario(model))
                 {
-                    AuthManager.SignInUser(model);
+                    _authManager.SignInUser(model);
+
                     return RedirectToAction("Index", "Home");
                 }
             }
+
             return View();
         }
 
         public ActionResult LogOut()
         {
-            AuthManager.SignOutUser();
+            _authManager.SignOutUser();
+
             return RedirectToAction("Index");
         }
     }

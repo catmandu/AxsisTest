@@ -1,8 +1,8 @@
 ﻿@model  AxsisTest.Models.Login
 
 @{
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
-    ViewBag.Title = "Login Page";
+    Layout = "~/Views/Shared/_LayoutNoNav.cshtml";
+    ViewBag.Title = "Login";
 }
 
 <div class="container">
@@ -12,9 +12,10 @@
             <div class="jumbotron">
                 <h3>Iniciar sesi&oacute;n</h3>
                 <br />
-                @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { id = "frmLogin"}))
                 {
                     @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.ConfirmPassword)
                     <div class="form-group">
                         @Html.DisplayNameFor(m => m.NombreUsuario)
                         @Html.TextBoxFor(m => m.NombreUsuario, new { placeholder = "Usuario", @class = "form-control" })

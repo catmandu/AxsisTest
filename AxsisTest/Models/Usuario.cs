@@ -10,7 +10,6 @@ namespace AxsisTest.Models
     {
         public Usuario()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.FechaCreacion = DateTime.Now;
         }
 
@@ -24,7 +23,7 @@ namespace AxsisTest.Models
 
         public Sexo Sexo { get; set; }
 
-        public System.DateTime FechaCreacion { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public bool Eliminado { get; set; }
     }

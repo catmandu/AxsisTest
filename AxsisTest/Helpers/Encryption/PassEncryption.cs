@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace AxsisTest.Helpers.Encryption
+namespace AxsisTest.Helpers
 {
     public static class PassEncryption
     {
