@@ -3,9 +3,9 @@
     ViewBag.Title = "Usuarios";
 }
 
-<div class="container">
+<div ng-app="" class="container">
     <h2>Usuarios</h2>
-    <table class="table table-hover text-center">
+    <table  class="table table-hover text-center">
         <thead>
             <tr>
                 <th>Id</th>
@@ -16,19 +16,15 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var usuario in Model)
-            {
-                <tr>
-                    <td>@usuario.Id</td>
-                    <td>@usuario.NombreUsuario</td>
-                    <td>@usuario.Correo</td>
-                    <td>@usuario.Sexo</td>
-                    <td class="@Html.Raw(usuario.Estatus ? "text-success" : "text-danger")">@Html.Raw(usuario.Estatus ? "Activo" : "Inactivo")</td>
-                    <td>@Html.ActionLink("Eliminar", "Delete", new { Id = usuario.Id }) | @Html.ActionLink("Editar", "Update", new { Id = usuario.Id })</td>
+        <tbody ng-init = "usuarios = @Json.Encode(Model)">
+                <tr ng-repeat="usuario in usuarios">
+                    <td>{{usuario.Id}}</td>
+                    <td>{{usuario.NombreUsuario}}</td>
+                    <td>{{usuario.Correo}}</td>
+                    <td>{{usuario.Sexo}}</td>
+                    <td class="{{usuario.Estatus ? 'text-success' : 'text-danger' }}">{{usuario.Estatus ? 'Activo' : 'Inactivo' }}</td>
+                    <td><a href="{{'Home/Update?id='+usuario.Id}}">Editar</a> | <a href="{{'Home/Delete?id='+usuario.Id}}">Eliminar</a></td>
                 </tr>
-            }
-
         </tbody>
     </table>
 </div>
